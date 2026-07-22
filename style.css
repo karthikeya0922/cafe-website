@@ -1,0 +1,24 @@
+.hero-banner {
+    background-image: url('main\ background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.button {
+    background-color: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #ff784e;
+}
+
+.button-class {
+    margin-top: -20px;
+}

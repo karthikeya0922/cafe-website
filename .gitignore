@@ -1,0 +1,8 @@
+# Installers / large binaries — not part of the site
+*.msi
+*.exe
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
