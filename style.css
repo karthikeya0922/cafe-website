@@ -22,3 +22,25 @@
 .button-class {
     margin-top: -20px;
 }
+
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: #ff5733;
+    display: inline-block;
+}
+
+.square:hover {
+    background-color: #ff784e;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background:
+        linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .55)),
+        url("main\ cafe\ image.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
