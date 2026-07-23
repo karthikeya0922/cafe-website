@@ -6,13 +6,19 @@
 </head>
 
 <body>
-    <h1 style="color: white;" margin-right="250px;">Contact Us</h1>
-    <p style='color: white;'>If you have any questions or inquiries, please feel free to reach out to us. You can
+    <div id="navbar"></div>
+    <h1 style="color: white; margin-right: 250px; padding-top: 350px; padding-left:240px;">Contact Us</h1>
+    <p style='color: white; padding-left: 240px;'>If you have any questions or inquiries, please feel free to reach out to us. You can
         contact us through the following methods:</p>
     <ul>
-        <li style="color: white;">Email: hello@firepot.example</li>
-        <li style="color: white;">phone number: +91 90000 00000</li>
+        <li style="color: white;padding-left: 200px;">Email: hello@firepot.example</li><br>
+        <li style="color: white; padding-left: 200px;">phone number: +91 90000 00000</li>
     </ul>
 </body>
+<script>
+    fetch("navbar.html")
+        .then(respone => respone.text())
+        .then(data => { document.getElementById("navbar").innerHTML = data; });
+</script>
 
 </html>

@@ -6,9 +6,10 @@
 </head>
 
 <body>
-    <h1 style="color: white;" padding-left: 250px;">Services</h1>
+    <div id="navbar"></div>
+    <h1 style="color: white; margin-left: 290px; padding-top: 250px;">Services</h1>
     <ul>
-        <h3 style="color: white; padding-left: 250px; padding-top: 250px;">We offer a range of services to cater to your
+        <h3 style="color: white; padding-left: 250px; padding-top: 50px;">We offer a range of services to cater to your
             needs. Our team is committed to providing top-notch solutions and support.</h3>
         <h3 style="color: white; padding-left: 250px; padding-top: 10px;">Whether you're looking for consultation,
             implementation, or ongoing support, we have
@@ -18,5 +19,9 @@
             effectively.</h3>
     </ul>
 </body>
-
+<script>
+fetch("navbar.html")
+.then(response => response.text())
+.then(data => {document.getElementById("navbar").innerHTML = data;});
+</script>
 </html>

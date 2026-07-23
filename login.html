@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    <div id="navbar"></div>
     <h2 style="color: white; margin-left: 600px; margin-top: 250px;"> Login</h2>
     <form action="index.html">
         <label style="color: white; margin-left: 600px;"> username : </label><br>
@@ -15,5 +16,10 @@
         <input style="color: brown; margin-left: 650px;" type='submit' value='login'>
     </form>
 </body>
+<script>
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => { document.getElementById("navbar").innerHTML = data; });
+</script>
 
 </html>

@@ -44,3 +44,76 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.navbar {
+    font-family: 'Poppins', Calibri, sans-serif;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navdiv {
+    display: flex;
+    align-items: center;
+}
+
+.logo a{
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+li{
+    list-style: none;
+    display: inline-block;
+}
+li a{
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+button{
+    background-color: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+button a{
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.logo-image{
+    width: 100px;
+    height: 100px;
+    display: block;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+.nav-links{
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    list-style: none;
+    margin-left: 200px;
+}
+
+.login-btn{
+    background: #ff623d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
