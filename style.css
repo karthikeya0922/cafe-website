@@ -46,12 +46,22 @@ body {
 }
 
 .navbar {
-    font-family: 'Poppins', Calibri, sans-serif;
-    padding: 20px;
     position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 90%;
+    padding: 15px 30px;
+
+    background: rgba(255, 255, 255, 0.15);
+    /* Transparent white */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+
     z-index: 1000;
 }
 
@@ -60,23 +70,26 @@ body {
     align-items: center;
 }
 
-.logo a{
+.logo a {
     color: white;
     text-decoration: none;
     font-size: 24px;
     font-weight: bold;
 }
-li{
+
+li {
     list-style: none;
     display: inline-block;
 }
-li a{
+
+li a {
     color: white;
     text-decoration: none;
     padding: 10px 15px;
     display: block;
 }
-button{
+
+button {
     background-color: #ff5733;
     color: white;
     padding: 10px 20px;
@@ -85,23 +98,25 @@ button{
     cursor: pointer;
     text-decoration: none;
 }
-button a{
+
+button a {
     color: white;
     font-weight: bold;
     font-size: 16px;
 }
 
-.logo-image{
+.logo-image {
     width: 100px;
     height: 100px;
     display: block;
 }
 
-.logo{
+.logo {
     display: flex;
     align-items: center;
 }
-.nav-links{
+
+.nav-links {
     display: flex;
     align-items: center;
     gap: 150px;
@@ -109,7 +124,7 @@ button a{
     margin-left: 200px;
 }
 
-.login-btn{
+.login-btn {
     background: #ff623d;
     color: white;
     padding: 10px 20px;
