@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Menu - Fire Pot</title>
+    <link rel="icon" type="image/jpeg" href="cafe_logo_trans-removebg-preview.png" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <h1 style="color: white; margin-left: 40px; padding-top: 250px;">Our Menu</h1>
+
+    <div style="margin-left: 40px; padding-top: 10px;">
+        <button onclick="loadJSONMenu()">Load Menu (JSON)</button>
+        <button onclick="loadXMLMenu()">Load Menu (XML)</button>
+    </div>
+
+    <div id="menu-output" style="color: white; margin: 20px 40px;"></div>
+
+    <script>
+        fetch("navbar.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+            });
+
+        function renderMenu(title, items) {
+            let html = `<h3>${title}</h3><ul>`;
+            items.forEach(item => {
+                html += `<li>${item.name} (${item.category}) - Rs. ${item.price}</li>`;
+            });
+            html += "</ul>";
+            document.getElementById("menu-output").innerHTML = html;
+        }
+
+        function loadJSONMenu() {
+            fetch("menu.json")
+                .then(response => {
+                    if (!response.ok) throw new Error("Network error: " + response.status);
+                    return response.json();
+                })
+                .then(items => renderMenu("From JSON", items))
+                .catch(error => {
+                    document.getElementById("menu-output").innerText = "Error loading menu: " + error.message;
+                });
+        }
+
+        function loadXMLMenu() {
+            fetch("menu.xml")
+                .then(response => {
+                    if (!response.ok) throw new Error("Network error: " + response.status);
+                    return response.text();
+                })
+                .then(text => {
+                    const xml = new DOMParser().parseFromString(text, "text/xml");
+                    if (xml.querySelector("parsererror")) {
+                        throw new Error("Invalid XML");
+                    }
+                    const nodes = xml.getElementsByTagName("item");
+                    const items = [];
+                    for (let i = 0; i < nodes.length; i++) {
+                        items.push({
+                            name: nodes[i].getElementsByTagName("name")[0].textContent,
+                            category: nodes[i].getElementsByTagName("category")[0].textContent,
+                            price: nodes[i].getElementsByTagName("price")[0].textContent
+                        });
+                    }
+                    renderMenu("From XML", items);
+                })
+                .catch(error => {
+                    document.getElementById("menu-output").innerText = "Error loading menu: " + error.message;
+                });
+        }
+    </script>
+</body>
+
+</html>
