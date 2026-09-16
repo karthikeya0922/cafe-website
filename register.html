@@ -8,20 +8,22 @@
 <body>
     <div id="navbar"></div>
     <h2 style="color: white; margin-left: 600px; margin-top: 250px;"> Register</h2>
-    <form action="index.html">
+    <form id="registerForm" action="index.html" novalidate>
         <label style="color: white; margin-left: 600px;"> username : </label><br>
-        <input style="color: black; margin-left: 600px;" type='text' id='username' name='username'><br>
+        <input style="color: black; margin-left: 600px;" type='text' id='username' name='username'>
+        <br><span id="usernameError" style="color: #ff6b6b; font-size: 13px; margin-left: 600px; display: block;"></span>
+
         <label style="color: white; margin-left: 600px;"> email : </label><br>
-        <input style="color: black; margin-left: 600px;" type='email' id='email' name='email'><br>
+        <input style="color: black; margin-left: 600px;" type='email' id='email' name='email'>
+        <br><span id="emailError" style="color: #ff6b6b; font-size: 13px; margin-left: 600px; display: block;"></span>
+
         <label style="color: white ; margin-left: 600px;">password:</label><br>
-        <input style="color: black; margin-left: 600px;" type='password' id='pwd' name='pwd'><br><br>
-        <input style="color: brown; margin-left: 650px;" type='submit' value='register'>
+        <input style="color: black; margin-left: 600px;" type='password' id='pwd' name='pwd'>
+        <br><span id="pwdError" style="color: #ff6b6b; font-size: 13px; margin-left: 600px; display: block;"></span><br>
+
+        <input style="color: brown; margin-left: 650px; cursor: pointer;" type='submit' value='register'>
     </form>
 </body>
-<script>
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => { document.getElementById("navbar").innerHTML = data; });
-</script>
+<script src="script.js"></script>
 
 </html>

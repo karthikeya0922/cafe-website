@@ -9,18 +9,24 @@
     <div id="navbar"></div>
 
     <h1 style="color: white;margin-left: 40px;padding-top: 250px;">About Us</h1>
-    <ul>
-        <p style="color: white;"> we are a team of professionals dedicated to provide best services for all</p>
-        <p style="color: white;">Welcome to our little neighborhood escape.<br> Born out of a passion for great coffee
-            and genuine connection, we are a cozy haven dedicated to fueling your day.<br> From our locally sourced
-            brews to our freshly baked pastries, every detail is crafted to make you feel right at home.<br> Come as you
-            are, pull up a chair, and stay a while.</p>
-    </ul>
+    <div id="about-text" style="color: white; margin-left: 40px; margin-right: 40px; white-space: pre-line;"></div>
 </body>
 <script>
 fetch("navbar.html")
 .then(response => response.text())
 .then(data => {
     document.getElementById("navbar").innerHTML = data;});
+
+fetch("about.txt")
+    .then(response => {
+        if (!response.ok) throw new Error("Network error: " + response.status);
+        return response.text();
+    })
+    .then(data => {
+        document.getElementById("about-text").innerText = data;
+    })
+    .catch(error => {
+        document.getElementById("about-text").innerText = "Error loading content: " + error.message;
+    });
 </script>
 </html>

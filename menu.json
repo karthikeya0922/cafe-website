@@ -1,0 +1,8 @@
+[
+  { "name": "Espresso", "category": "Coffee", "price": 120 },
+  { "name": "Cappuccino", "category": "Coffee", "price": 150 },
+  { "name": "Cold Brew", "category": "Coffee", "price": 170 },
+  { "name": "Masala Chai", "category": "Tea", "price": 90 },
+  { "name": "Butter Croissant", "category": "Bakery", "price": 110 },
+  { "name": "Blueberry Muffin", "category": "Bakery", "price": 130 }
+]

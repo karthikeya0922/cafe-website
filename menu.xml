@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <item id="M001">
+        <name>Hazelnut Latte</name>
+        <category>Coffee</category>
+        <price>160</price>
+    </item>
+    <item id="M002">
+        <name>Green Tea</name>
+        <category>Tea</category>
+        <price>100</price>
+    </item>
+    <item id="M003">
+        <name>Chocolate Brownie</name>
+        <category>Bakery</category>
+        <price>140</price>
+    </item>
+    <item id="M004">
+        <name>Cheese Sandwich</name>
+        <category>Snacks</category>
+        <price>180</price>
+    </item>
+</menu>
