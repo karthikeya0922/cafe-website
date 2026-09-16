@@ -3,6 +3,54 @@
 <head>
     <title>Contact Us</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .feedback-form {
+            margin: 30px 240px 0;
+            max-width: 420px;
+        }
+
+        .feedback-form label {
+            display: block;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 14px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, .4);
+            background: rgba(255, 255, 255, .9);
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .feedback-form button {
+            background-color: #ff623d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .feedback-form button:hover {
+            background-color: #ff784e;
+        }
+
+        #feedback-output {
+            color: white;
+            background: rgba(0, 0, 0, .35);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 14px;
+            white-space: pre-wrap;
+            max-width: 420px;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,11 +62,54 @@
         <li style="color: white;padding-left: 200px;">Email: hello@firepot.example</li><br>
         <li style="color: white; padding-left: 200px;">phone number: +91 90000 00000</li>
     </ul>
+
+    <form class="feedback-form" id="feedbackForm" onsubmit="return false;">
+        <h2 style="color: white;">Send Us Feedback</h2>
+        <label for="fbName">Name</label>
+        <input type="text" id="fbName" required>
+
+        <label for="fbEmail">Email</label>
+        <input type="email" id="fbEmail" required>
+
+        <label for="fbMessage">Message</label>
+        <textarea id="fbMessage" rows="4" required></textarea>
+
+        <button type="button" onclick="submitFeedback()">Submit</button>
+        <pre id="feedback-output"></pre>
+    </form>
 </body>
 <script>
     fetch("navbar.html")
         .then(respone => respone.text())
         .then(data => { document.getElementById("navbar").innerHTML = data; });
+
+    function submitFeedback() {
+        const output = document.getElementById("feedback-output");
+        const payload = {
+            name: document.getElementById("fbName").value,
+            email: document.getElementById("fbEmail").value,
+            message: document.getElementById("fbMessage").value
+        };
+
+        output.innerText = "Sending...";
+
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Network error: " + res.status);
+                return res.json();
+            })
+            .then(data => {
+                output.innerText = "Thanks! Feedback received:\n" + JSON.stringify(data, null, 2);
+                document.getElementById("feedbackForm").reset();
+            })
+            .catch(err => {
+                output.innerText = "Error: " + err.message;
+            });
+    }
 </script>
 
 </html>
