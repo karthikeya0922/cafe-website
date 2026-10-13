@@ -1,27 +1,151 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>register page </title>
+    <meta charset="UTF-8">
+    <title>Register - Fire Pot</title>
+    <link rel="icon" type="image/png" href="cafe_logo_trans-removebg-preview.png" />
+    <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Internal CSS -->
+    <style>
+        .register-form {
+            max-width: 460px;
+            margin: 40px auto 0;
+            padding: 24px 28px;
+            background: rgba(0, 0, 0, .45);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 12px;
+            color: white;
+        }
+
+        .register-form label {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+
+        .register-form input[type="text"],
+        .register-form input[type="email"],
+        .register-form input[type="tel"],
+        .register-form input[type="date"],
+        .register-form input[type="password"],
+        .register-form select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .register-form .inline-group label {
+            display: inline;
+            margin-right: 14px;
+        }
+
+        .register-form .error {
+            display: block;
+            color: #ff6b6b;
+            font-size: 13px;
+            min-height: 16px;
+        }
+
+        .register-form .actions {
+            margin-top: 18px;
+        }
+
+        .register-form button {
+            background-color: #ff623d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        .register-form button[type="reset"] {
+            background-color: #666;
+        }
+
+        .register-form button:hover {
+            opacity: .9;
+        }
+    </style>
 </head>
 
 <body>
     <div id="navbar"></div>
-    <h2 style="color: white; margin-left: 600px; margin-top: 250px;"> Register</h2>
-    <form id="registerForm" action="index.html" novalidate>
-        <label style="color: white; margin-left: 600px;"> username : </label><br>
-        <input style="color: black; margin-left: 600px;" type='text' id='username' name='username'>
-        <br><span id="usernameError" style="color: #ff6b6b; font-size: 13px; margin-left: 600px; display: block;"></span>
 
-        <label style="color: white; margin-left: 600px;"> email : </label><br>
-        <input style="color: black; margin-left: 600px;" type='email' id='email' name='email'>
-        <br><span id="emailError" style="color: #ff6b6b; font-size: 13px; margin-left: 600px; display: block;"></span>
+    <!-- Inline CSS -->
+    <h2 style="color: white; text-align: center; margin-top: 150px;">Member Registration</h2>
 
-        <label style="color: white ; margin-left: 600px;">password:</label><br>
-        <input style="color: black; margin-left: 600px;" type='password' id='pwd' name='pwd'>
-        <br><span id="pwdError" style="color: #ff6b6b; font-size: 13px; margin-left: 600px; display: block;"></span><br>
+    <form id="registerForm" class="register-form" action="index.html" method="get">
+        <label for="fullname">Full name</label>
+        <input type="text" id="fullname" name="fullname" required minlength="3" maxlength="40"
+            pattern="[A-Za-z ]+" title="Letters and spaces only" placeholder="e.g. Karthikeya Gupta">
+        <span class="error" id="fullnameError"></span>
 
-        <input style="color: brown; margin-left: 650px; cursor: pointer;" type='submit' value='register'>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required minlength="3" maxlength="20"
+            pattern="[A-Za-z0-9_]+" title="Letters, numbers and underscores only">
+        <span class="error" id="usernameError"></span>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="user@example.com">
+        <span class="error" id="emailError"></span>
+
+        <label for="phone">Mobile number</label>
+        <input type="tel" id="phone" name="phone" required pattern="[6-9][0-9]{9}"
+            title="10-digit Indian mobile number starting with 6-9" placeholder="9876543210">
+        <span class="error" id="phoneError"></span>
+
+        <label for="dob">Date of birth</label>
+        <input type="date" id="dob" name="dob" required min="1920-01-01">
+        <span class="error" id="dobError"></span>
+
+        <label>Gender</label>
+        <div class="inline-group">
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label>
+        </div>
+        <span class="error" id="genderError"></span>
+
+        <label for="favourite">Favourite drink</label>
+        <select id="favourite" name="favourite" required>
+            <option value="">-- Select --</option>
+            <option value="coffee">Coffee</option>
+            <option value="tea">Tea</option>
+            <option value="shakes">Shakes</option>
+            <option value="juice">Fresh juice</option>
+        </select>
+        <span class="error" id="favouriteError"></span>
+
+        <label for="pwd">Password</label>
+        <input type="password" id="pwd" name="pwd" required minlength="6"
+            pattern="(?=.*[A-Za-z])(?=.*[0-9]).{6,}" title="At least 6 characters with letters and numbers">
+        <span class="error" id="pwdError"></span>
+
+        <label for="confirmPwd">Confirm password</label>
+        <input type="password" id="confirmPwd" name="confirmPwd" required minlength="6">
+        <span class="error" id="confirmPwdError"></span>
+
+        <div class="inline-group" style="margin-top: 12px;">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">I agree to the terms and conditions</label>
+        </div>
+        <span class="error" id="termsError"></span>
+
+        <div class="actions">
+            <button type="submit">Register</button>
+            <button type="reset">Clear</button>
+        </div>
     </form>
 </body>
 <script src="script.js"></script>
