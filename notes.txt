@@ -1,0 +1,8 @@
+Fire Pot - Today's Specials
+
+1. Hazelnut Latte - Rs. 160
+2. Masala Chai with Butter Croissant combo - Rs. 180
+3. Oreo Shake - Rs. 190
+
+Open daily from 8:00 AM to 11:00 PM.
+This text was loaded asynchronously using the Fetch API.
