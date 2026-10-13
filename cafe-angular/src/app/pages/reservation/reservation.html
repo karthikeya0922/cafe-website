@@ -1,0 +1,73 @@
+<div class="page layout">
+  <form class="panel" #resForm="ngForm" (ngSubmit)="submit(resForm)" novalidate>
+    <h1>Reserve a Table</h1>
+
+    <label for="name">Name</label>
+    <input id="name" name="name" [(ngModel)]="model.name" #name="ngModel" required minlength="3" />
+    @if (name.invalid && name.touched) {
+      <small class="error">
+        @if (name.hasError('required')) { Name is required. } @else { Name must be at least 3 characters. }
+      </small>
+    }
+
+    <label for="email">Email</label>
+    <input id="email" type="email" name="email" [(ngModel)]="model.email" #email="ngModel" required email />
+    @if (email.invalid && email.touched) {
+      <small class="error">Enter a valid email address.</small>
+    }
+
+    <div class="row">
+      <div>
+        <label for="date">Date</label>
+        <input id="date" type="date" name="date" [min]="today" [(ngModel)]="model.date" #date="ngModel" required />
+        @if (date.touched && (date.invalid || isPastDate(model.date))) {
+          <small class="error">Choose today or a future date.</small>
+        }
+      </div>
+      <div>
+        <label for="time">Time</label>
+        <input id="time" type="time" name="time" [(ngModel)]="model.time" #time="ngModel" required />
+        @if (time.touched && (time.invalid || isOutsideHours(model.time))) {
+          <small class="error">We're open 8:00 AM - 10:00 PM.</small>
+        }
+      </div>
+      <div>
+        <label for="guests">Guests</label>
+        <input id="guests" type="number" name="guests" [(ngModel)]="model.guests" #guests="ngModel" required min="1" max="10" />
+        @if (guests.invalid && guests.touched) {
+          <small class="error">1 to 10 guests.</small>
+        }
+      </div>
+    </div>
+
+    <label for="seating">Seating</label>
+    <select id="seating" name="seating" [(ngModel)]="model.seating">
+      <option value="indoor">Indoor</option>
+      <option value="outdoor">Outdoor</option>
+      <option value="window">Window seat</option>
+    </select>
+
+    <label for="requests">Special requests</label>
+    <textarea id="requests" name="requests" rows="2" [(ngModel)]="model.requests" maxlength="150"></textarea>
+
+    <button type="submit">Confirm reservation</button>
+    <p class="muted status">
+      Form valid: {{ resForm.valid }} · touched: {{ resForm.touched }} · values: {{ resForm.value | json }}
+    </p>
+  </form>
+
+  <aside class="panel">
+    <h2>Your reservations</h2>
+    @for (r of confirmed(); track $index) {
+      <div class="booking">
+        <strong>{{ r.name }}</strong> · {{ r.guests }} guests<br />
+        {{ r.date | date: 'EEE, d MMM' }} at {{ r.time }} · {{ r.seating }}
+        @if (r.requests) {
+          <br /><small class="muted">{{ r.requests }}</small>
+        }
+      </div>
+    } @empty {
+      <p class="muted">No reservations yet.</p>
+    }
+  </aside>
+</div>

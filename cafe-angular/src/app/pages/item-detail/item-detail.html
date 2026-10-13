@@ -1,0 +1,45 @@
+<div class="page">
+  <a routerLink="/menu">← Back to menu</a>
+
+  @if (menu.loading()) {
+    <p>Loading...</p>
+  } @else if (item(); as item) {
+    <div class="detail panel">
+      <div class="icon">{{ item.icon }}</div>
+      <div class="info">
+        <p class="muted">{{ item.category }} · {{ item.veg ? 'Veg' : 'Non-veg' }} · ★ {{ item.rating }}</p>
+        <h1>{{ item.name }}</h1>
+        <p>{{ item.description }}</p>
+        <p class="price">{{ item.price | currency: 'INR' : 'symbol' : '1.0-0' }}</p>
+
+        <div class="buy">
+          <span class="qty">
+            <button (click)="changeQuantity(-1)" [disabled]="quantity() === 1">−</button>
+            {{ quantity() }}
+            <button (click)="changeQuantity(1)" [disabled]="quantity() === 10">+</button>
+          </span>
+          <button (click)="addToCart()">
+            Add {{ quantity() }} to cart · {{ item.price * quantity() | currency: 'INR' : 'symbol' : '1.0-0' }}
+          </button>
+        </div>
+        @if (added()) {
+          <p class="success">Added! <a routerLink="/cart">View cart</a></p>
+        }
+      </div>
+    </div>
+
+    @if (related().length) {
+      <h3>More from {{ item.category }}</h3>
+      <div class="related">
+        @for (r of related(); track r.id) {
+          <a class="panel" [routerLink]="['/menu', r.id]">{{ r.icon }} {{ r.name }}</a>
+        }
+      </div>
+    }
+  } @else {
+    <div class="panel">
+      <h2>Item not found</h2>
+      <p>There is no menu item with id "{{ id() }}".</p>
+    </div>
+  }
+</div>

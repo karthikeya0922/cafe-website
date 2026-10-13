@@ -1,0 +1,55 @@
+.detail {
+  display: flex;
+  gap: 32px;
+  margin-top: 16px;
+}
+
+.icon {
+  font-size: 110px;
+  padding: 20px 36px;
+  border-radius: 12px;
+  background: rgba(255, 98, 61, 0.15);
+  align-self: flex-start;
+}
+
+h1 {
+  margin: 0 0 8px;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.buy {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.qty button {
+  width: 30px;
+  padding: 4px 0;
+}
+
+.success {
+  color: #81c784;
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.related a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 16px;
+}
+
+@media (max-width: 700px) {
+  .detail {
+    flex-direction: column;
+  }
+}

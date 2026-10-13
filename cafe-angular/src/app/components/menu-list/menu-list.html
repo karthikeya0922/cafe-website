@@ -16,17 +16,21 @@
   </div>
 
   <p class="count">
-    Showing {{ visibleItems().length }} of {{ items().length }} items
+    Showing {{ visibleItems().length }} of {{ menu.items().length }} items
     @if (search()) {
       for "<em>{{ search() }}</em>"
     }
   </p>
 
-  <!-- @if / @else: structural control flow, shows one block or the other -->
-  @if (visibleItems().length > 0) {
+  <!-- @if / @else if / @else: structural control flow, shows one block -->
+  @if (menu.loading()) {
+    <p class="empty">Loading menu...</p>
+  } @else if (menu.error()) {
+    <p class="empty">{{ menu.error() }}</p>
+  } @else if (visibleItems().length > 0) {
     <div class="grid">
       @for (item of visibleItems(); track item.id) {
-        <app-menu-card [item]="item" (add)="add.emit($event)" />
+        <app-menu-card [item]="item" (add)="cart.add($event)" />
       }
     </div>
   } @else {

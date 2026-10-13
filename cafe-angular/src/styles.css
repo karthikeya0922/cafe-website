@@ -87,3 +87,58 @@ textarea {
   font-size: 14px;
   box-sizing: border-box;
 }
+
+a.button {
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  background: var(--accent);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+a.button:hover {
+  background: var(--accent-hover);
+}
+
+a.button.secondary {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid #ccc;
+}
+
+.page {
+  margin: 0 auto;
+}
+
+.narrow {
+  max-width: 560px;
+}
+
+form label {
+  display: block;
+  margin: 14px 0 4px;
+}
+
+form input:not([type='radio']):not([type='checkbox']),
+form select,
+form textarea {
+  width: 100%;
+}
+
+form .radio-group label {
+  display: inline;
+}
+
+form input.ng-invalid.ng-touched,
+form textarea.ng-invalid.ng-touched {
+  border: 2px solid var(--error);
+}
+
+.error {
+  display: block;
+  color: var(--error);
+  margin-top: 4px;
+}

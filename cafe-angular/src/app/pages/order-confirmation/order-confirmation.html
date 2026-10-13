@@ -1,0 +1,25 @@
+<div class="page narrow panel">
+  @if (order(); as order) {
+    <h1>✅ Order #{{ order.id }} confirmed</h1>
+    <p>Thank you, {{ order.name }}! Placed at {{ order.placedAt | date: 'shortTime' }}.</p>
+    <p>
+      <strong>{{ order.orderType | titlecase }}</strong>
+      @if (order.orderType === 'dine-in') { · Table {{ order.tableNumber }} }
+      @if (order.orderType === 'delivery') { · {{ order.address }} }
+    </p>
+
+    <ul>
+      @for (line of order.lines; track line.item.id) {
+        <li>{{ line.item.name }} × {{ line.quantity }}</li>
+      }
+    </ul>
+    <p><strong>Total paid: {{ order.total | currency: 'INR' : 'symbol' : '1.0-0' }}</strong></p>
+    @if (order.notes) {
+      <p class="muted">Notes: {{ order.notes }}</p>
+    }
+  } @else {
+    <h1>Order not found</h1>
+    <p>We couldn't find order #{{ id() }}. Orders are kept only until the page is reloaded.</p>
+  }
+  <a class="button" routerLink="/menu">Back to menu</a>
+</div>

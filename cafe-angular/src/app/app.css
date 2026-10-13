@@ -1,14 +1,9 @@
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 28px;
-  align-items: start;
+main {
   padding: 0 32px;
 }
 
 @media (max-width: 800px) {
-  .layout {
-    grid-template-columns: 1fr;
+  main {
     padding: 0 16px;
   }
 }

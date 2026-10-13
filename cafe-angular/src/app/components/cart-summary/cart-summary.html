@@ -1,22 +1,25 @@
 <aside class="cart panel">
   <h2>Your Order</h2>
 
-  @for (line of lines(); track line.item.id) {
+  @for (line of cart.lines(); track line.item.id) {
     <div class="line">
       <span>
         {{ line.item.name }}<br />
         <small>{{ line.item.price * line.quantity | currency: 'INR' : 'symbol' : '1.0-0' }}</small>
       </span>
       <span class="qty">
-        <button (click)="changeQuantity.emit({ id: line.item.id, delta: -1 })">−</button>
+        <button (click)="cart.changeQuantity(line.item.id, -1)">−</button>
         {{ line.quantity }}
-        <button (click)="changeQuantity.emit({ id: line.item.id, delta: 1 })">+</button>
+        <button (click)="cart.changeQuantity(line.item.id, 1)">+</button>
       </span>
     </div>
   } @empty {
     <p class="muted">Your cart is empty.</p>
   }
 
-  <p class="total">Total: <strong>{{ total() | currency: 'INR' : 'symbol' : '1.0-0' }}</strong></p>
-  <button class="secondary" [disabled]="lines().length === 0" (click)="clear.emit()">Clear cart</button>
+  <p class="total">Total: <strong>{{ cart.total() | currency: 'INR' : 'symbol' : '1.0-0' }}</strong></p>
+  @if (showCheckout() && cart.count() > 0) {
+    <a class="button" routerLink="/checkout">Checkout</a>
+  }
+  <button class="secondary" [disabled]="cart.count() === 0" (click)="cart.clear()">Clear cart</button>
 </aside>

@@ -1,0 +1,17 @@
+<section class="hero">
+  <h1>Welcome to Fire Pot</h1>
+  <p>Fresh, hand-crafted drinks and bakes in Majarguda.</p>
+  <div class="actions">
+    <a class="button" routerLink="/menu">Browse the menu</a>
+    <a class="button secondary" routerLink="/reserve">Reserve a table</a>
+  </div>
+</section>
+
+<section class="featured">
+  <h2>Customer favourites</h2>
+  <div class="grid">
+    @for (item of menu.featured(); track item.id) {
+      <app-menu-card [item]="item" (add)="cart.add($event)" />
+    }
+  </div>
+</section>

@@ -1,0 +1,74 @@
+<div class="page layout">
+  <form class="panel" [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Checkout</h1>
+
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" />
+    @if (showError('name')) {
+      <small class="error">
+        @if (form.controls.name.hasError('required')) { Name is required. }
+        @else if (form.controls.name.hasError('blank')) { Name cannot be only spaces. }
+        @else { Name must be at least 3 characters. }
+      </small>
+    }
+
+    <label for="phone">Mobile number</label>
+    <input id="phone" type="tel" formControlName="phone" placeholder="9876543210" />
+    @if (showError('phone')) {
+      <small class="error">Enter a 10-digit mobile number starting with 6-9.</small>
+    }
+
+    <label>Order type</label>
+    <div class="radio-group">
+      <label><input type="radio" formControlName="orderType" value="dine-in" /> Dine-in</label>
+      <label><input type="radio" formControlName="orderType" value="takeaway" /> Takeaway</label>
+      <label><input type="radio" formControlName="orderType" value="delivery" /> Delivery</label>
+    </div>
+
+    <!-- @switch: shows the extra field that matches the order type -->
+    @switch (form.controls.orderType.value) {
+      @case ('dine-in') {
+        <label for="tableNumber">Table number (1-20)</label>
+        <input id="tableNumber" type="number" formControlName="tableNumber" />
+        @if (showError('tableNumber')) {
+          <small class="error">Choose a table between 1 and 20.</small>
+        }
+      }
+      @case ('delivery') {
+        <label for="address">Delivery address</label>
+        <textarea id="address" rows="2" formControlName="address"></textarea>
+        @if (showError('address')) {
+          <small class="error">Enter a full delivery address (at least 10 characters).</small>
+        }
+      }
+      @default {
+        <p class="muted">Collect your order at the counter.</p>
+      }
+    }
+
+    <label for="notes">Notes (optional)</label>
+    <textarea id="notes" rows="2" formControlName="notes" placeholder="Less sugar, extra hot..."></textarea>
+    <small class="muted">{{ form.controls.notes.value.length }}/200</small>
+    @if (showError('notes')) {
+      <small class="error">Notes can be at most 200 characters.</small>
+    }
+
+    <button type="submit">Place order · {{ cart.total() | currency: 'INR' : 'symbol' : '1.0-0' }}</button>
+    <p class="muted status">Form status: {{ form.status }}</p>
+  </form>
+
+  <aside class="panel">
+    <h2>Summary</h2>
+    @for (line of cart.lines(); track line.item.id) {
+      <div class="line">
+        <span>{{ line.item.name }} × {{ line.quantity }}</span>
+        <span>{{ line.item.price * line.quantity | currency: 'INR' : 'symbol' : '1.0-0' }}</span>
+      </div>
+    }
+    <div class="line total">
+      <span>Total</span>
+      <span>{{ cart.total() | currency: 'INR' : 'symbol' : '1.0-0' }}</span>
+    </div>
+    <a routerLink="/cart">Edit cart</a>
+  </aside>
+</div>

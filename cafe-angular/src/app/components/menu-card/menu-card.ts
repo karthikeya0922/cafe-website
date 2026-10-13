@@ -1,11 +1,12 @@
 import { Component, input, output } from '@angular/core';
 import { CurrencyPipe, NgClass, NgStyle } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { MenuItem } from '../../models/menu-item';
 import { Highlight } from '../../directives/highlight';
 
 @Component({
   selector: 'app-menu-card',
-  imports: [NgClass, NgStyle, CurrencyPipe, Highlight],
+  imports: [NgClass, NgStyle, CurrencyPipe, RouterLink, Highlight],
   templateUrl: './menu-card.html',
   styleUrl: './menu-card.css',
 })

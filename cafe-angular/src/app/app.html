@@ -1,6 +1,6 @@
-<app-header [title]="title" tagline="Your favourite coffee, brewed right at home" [cartCount]="cartCount()" />
+<app-header [title]="title" tagline="Your favourite coffee, brewed right at home" />
 
-<main class="layout">
-  <app-menu-list (add)="addToCart($event)" />
-  <app-cart-summary [lines]="cart()" (changeQuantity)="changeQuantity($event)" (clear)="cart.set([])" />
+<main>
+  <!-- The router swaps the page component shown here -->
+  <router-outlet />
 </main>

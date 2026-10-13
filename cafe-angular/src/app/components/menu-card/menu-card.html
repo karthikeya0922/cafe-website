@@ -1,7 +1,7 @@
 <!-- appHighlight is a custom attribute directive -->
 <div class="card" appHighlight>
   <div class="icon">{{ item().icon }}</div>
-  <h3>{{ item().name }}</h3>
+  <h3><a [routerLink]="['/menu', item().id]">{{ item().name }}</a></h3>
 
   <div class="meta">
     <!-- ngClass: built-in attribute directive -->

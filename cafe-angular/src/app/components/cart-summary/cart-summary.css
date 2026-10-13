@@ -30,3 +30,7 @@ h2 {
 .secondary {
   width: 100%;
 }
+
+.button {
+  margin-bottom: 8px;
+}

@@ -1,11 +1,23 @@
 <header class="header">
-  <!-- Property binding: [src] and [alt] -->
-  <img class="logo" [src]="logo" [alt]="title() + ' logo'" />
-  <div class="brand">
-    <!-- Interpolation -->
-    <h1>{{ title() }}</h1>
-    <p>{{ tagline() }}</p>
-  </div>
-  <!-- Class binding: badge turns orange when the cart has items -->
-  <span class="cart-badge" [class.filled]="cartCount() > 0">🛒 {{ cartCount() }}</span>
+  <a routerLink="/" class="brand">
+    <!-- Property binding: [src] and [alt] -->
+    <img class="logo" [src]="logo" [alt]="title() + ' logo'" />
+    <span>
+      <!-- Interpolation -->
+      <strong>{{ title() }}</strong>
+      <small>{{ tagline() }}</small>
+    </span>
+  </a>
+
+  <nav>
+    @for (link of links; track link.path) {
+      <a [routerLink]="link.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: link.exact }">
+        {{ link.label }}
+      </a>
+    }
+    <!-- Class binding: badge turns orange when the cart has items -->
+    <a routerLink="/cart" routerLinkActive="active" class="cart-badge" [class.filled]="cart.count() > 0">
+      🛒 {{ cart.count() }}
+    </a>
+  </nav>
 </header>

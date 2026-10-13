@@ -1,59 +1,39 @@
-# CafeAngular
+# Fire Pot — Angular SPA (Weeks 12–14)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.2.
+A single-page version of the Fire Pot cafe site, built with **Angular 22**: standalone components, signals and zoneless change detection.
 
-## Development server
-
-To start a local development server, run:
+## Run it
 
 ```bash
-ng serve
+npm install
+npm start          # http://localhost:4200
+npm run build      # production build in dist/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Routes
 
-## Code scaffolding
+| Path | Page | Shows |
+|------|------|-------|
+| `/` | Home | Featured items from `MenuService` |
+| `/menu` | Menu | Search, category filter, veg toggle, cart sidebar |
+| `/menu/:id` | Item detail | Route parameter bound to a component input |
+| `/cart` | Cart | Shared `CartService` state |
+| `/checkout` | Checkout | **Reactive form**, protected by `cartNotEmptyGuard`, lazy loaded |
+| `/orders/:id` | Order confirmation | Programmatic navigation after checkout |
+| `/reserve` | Reserve a table | **Template-driven form**, lazy loaded |
+| `**` | 404 | Wildcard route |
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Where each topic lives
 
-```bash
-ng generate component component-name
-```
+| Topic | Files |
+|-------|-------|
+| Components and inputs/outputs | `components/header`, `menu-card`, `menu-list`, `cart-summary` |
+| Interpolation, property, event and two-way binding | `header.html`, `menu-card.html`, `menu-list.html` |
+| Built-in directives | `@if` / `@for` / `@switch`, `[ngClass]`, `[ngStyle]` |
+| Custom directive | `directives/highlight.ts` (`appHighlight`) |
+| Services and dependency injection | `services/menu.service.ts` (HttpClient), `cart.service.ts`, `order.service.ts` |
+| Routing | `app.routes.ts`, `guards/cart-not-empty.ts` |
+| Reactive form | `pages/checkout` (FormBuilder, built-in and custom validators, conditional validation) |
+| Template-driven form | `pages/reservation` (`ngModel`, `#ref="ngModel"`, `NgForm`) |
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Menu data is loaded over HTTP from `public/menu-data.json`.
