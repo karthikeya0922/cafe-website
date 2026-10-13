@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<menu>
-    <item id="M001">
+<?xml-stylesheet type="text/xsl" href="menu.xsl"?>
+<!DOCTYPE menu SYSTEM "menu.dtd">
+<menu cafe="Fire Pot">
+    <item id="M001" veg="yes">
         <name>Hazelnut Latte</name>
         <category>Coffee</category>
-        <price>160</price>
+        <price currency="INR">160</price>
+        <description>Smooth latte with a sweet roasted hazelnut twist.</description>
     </item>
-    <item id="M002">
+    <item id="M002" veg="yes">
         <name>Green Tea</name>
         <category>Tea</category>
-        <price>100</price>
+        <price currency="INR">100</price>
+        <description>Light and refreshing, rich in antioxidants.</description>
     </item>
-    <item id="M003">
+    <item id="M003" veg="no">
         <name>Chocolate Brownie</name>
         <category>Bakery</category>
-        <price>140</price>
+        <price currency="INR">140</price>
+        <description>Fudgy brownie made with eggs and dark chocolate.</description>
     </item>
-    <item id="M004">
+    <item id="M004" veg="yes">
         <name>Cheese Sandwich</name>
         <category>Snacks</category>
-        <price>180</price>
+        <price currency="INR">180</price>
     </item>
 </menu>

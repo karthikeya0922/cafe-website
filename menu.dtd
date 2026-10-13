@@ -1,0 +1,17 @@
+<!-- Document Type Definition for menu.xml -->
+
+<!-- A menu holds one or more items and names the cafe -->
+<!ELEMENT menu (item+)>
+<!ATTLIST menu cafe CDATA #REQUIRED>
+
+<!-- Each item needs a name, category and price; a description is optional -->
+<!ELEMENT item (name, category, price, description?)>
+<!ATTLIST item
+    id  ID       #REQUIRED
+    veg (yes|no) "yes">
+
+<!ELEMENT name        (#PCDATA)>
+<!ELEMENT category    (#PCDATA)>
+<!ELEMENT price       (#PCDATA)>
+<!ATTLIST price currency CDATA "INR">
+<!ELEMENT description (#PCDATA)>
