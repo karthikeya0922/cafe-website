@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogue - Fire Pot</title>
+    <link rel="icon" type="image/png" href="cafe_logo_trans-removebg-preview.png" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="catalogue.css">
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <h1 class="catalogue-title">Catalogue</h1>
+
+    <div class="catalogue-layout">
+        <section>
+            <div class="toolbar">
+                <input type="search" id="search" placeholder="Search drinks and food...">
+                <select id="sort">
+                    <option value="default">Sort: Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                    <option value="rating">Top Rated</option>
+                </select>
+            </div>
+            <div class="filters" id="filters"></div>
+            <p class="result-count" id="resultCount"></p>
+            <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <aside class="cart">
+            <h2>Your Order <span class="cart-count" id="cartCount">0</span></h2>
+            <ul id="cartItems"></ul>
+            <p class="cart-empty" id="cartEmpty">Your cart is empty.</p>
+            <div class="cart-total">Total: <strong id="cartTotal">Rs. 0</strong></div>
+            <button class="checkout-btn" id="checkoutBtn" disabled>Place Order</button>
+            <button class="clear-btn" id="clearBtn">Clear Cart</button>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="catalogue.js"></script>
+</body>
+
+</html>
