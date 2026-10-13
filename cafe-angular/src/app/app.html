@@ -1,0 +1,6 @@
+<app-header [title]="title" tagline="Your favourite coffee, brewed right at home" [cartCount]="cartCount()" />
+
+<main class="layout">
+  <app-menu-list (add)="addToCart($event)" />
+  <app-cart-summary [lines]="cart()" (changeQuantity)="changeQuantity($event)" (clear)="cart.set([])" />
+</main>

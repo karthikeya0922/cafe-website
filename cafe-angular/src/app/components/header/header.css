@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 32px;
+}
+
+.logo {
+  width: 72px;
+  height: 72px;
+}
+
+.brand {
+  flex: 1;
+}
+
+.brand h1 {
+  margin: 0;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  color: #ddd;
+}
+
+.cart-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: bold;
+}
+
+.cart-badge.filled {
+  background: var(--accent);
+}

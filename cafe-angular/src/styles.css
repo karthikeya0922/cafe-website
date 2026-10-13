@@ -1,0 +1,89 @@
+:root {
+  --accent: #ff623d;
+  --accent-hover: #ff784e;
+  --panel: rgba(0, 0, 0, 0.5);
+  --border: rgba(255, 255, 255, 0.2);
+  --error: #ff6b6b;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: white;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)),
+    url('/cafe-bg.jpg') center / cover fixed no-repeat,
+    #1e1410;
+}
+
+a {
+  color: #ffb199;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 22px;
+}
+
+.muted {
+  color: #ccc;
+}
+
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: transparent;
+  color: #ccc;
+  border: 1px solid #777;
+}
+
+button.chip {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  font-weight: normal;
+}
+
+button.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  padding: 9px 11px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}

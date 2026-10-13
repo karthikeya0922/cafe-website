@@ -1,0 +1,35 @@
+<section>
+  <div class="toolbar">
+    <!-- Two-way binding with ngModel -->
+    <input type="search" placeholder="Search the menu..." [(ngModel)]="search" />
+    <label>
+      <input type="checkbox" [(ngModel)]="vegOnly" />
+      Veg only
+    </label>
+  </div>
+
+  <div class="filters">
+    <!-- @for: structural control flow, repeats an element for each value -->
+    @for (c of categories; track c) {
+      <button class="chip" [class.active]="c === category()" (click)="category.set(c)">{{ c }}</button>
+    }
+  </div>
+
+  <p class="count">
+    Showing {{ visibleItems().length }} of {{ items().length }} items
+    @if (search()) {
+      for "<em>{{ search() }}</em>"
+    }
+  </p>
+
+  <!-- @if / @else: structural control flow, shows one block or the other -->
+  @if (visibleItems().length > 0) {
+    <div class="grid">
+      @for (item of visibleItems(); track item.id) {
+        <app-menu-card [item]="item" (add)="add.emit($event)" />
+      }
+    </div>
+  } @else {
+    <p class="empty">No items match your search.</p>
+  }
+</section>

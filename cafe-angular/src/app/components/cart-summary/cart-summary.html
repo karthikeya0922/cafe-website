@@ -1,0 +1,22 @@
+<aside class="cart panel">
+  <h2>Your Order</h2>
+
+  @for (line of lines(); track line.item.id) {
+    <div class="line">
+      <span>
+        {{ line.item.name }}<br />
+        <small>{{ line.item.price * line.quantity | currency: 'INR' : 'symbol' : '1.0-0' }}</small>
+      </span>
+      <span class="qty">
+        <button (click)="changeQuantity.emit({ id: line.item.id, delta: -1 })">−</button>
+        {{ line.quantity }}
+        <button (click)="changeQuantity.emit({ id: line.item.id, delta: 1 })">+</button>
+      </span>
+    </div>
+  } @empty {
+    <p class="muted">Your cart is empty.</p>
+  }
+
+  <p class="total">Total: <strong>{{ total() | currency: 'INR' : 'symbol' : '1.0-0' }}</strong></p>
+  <button class="secondary" [disabled]="lines().length === 0" (click)="clear.emit()">Clear cart</button>
+</aside>

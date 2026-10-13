@@ -1,0 +1,11 @@
+<header class="header">
+  <!-- Property binding: [src] and [alt] -->
+  <img class="logo" [src]="logo" [alt]="title() + ' logo'" />
+  <div class="brand">
+    <!-- Interpolation -->
+    <h1>{{ title() }}</h1>
+    <p>{{ tagline() }}</p>
+  </div>
+  <!-- Class binding: badge turns orange when the cart has items -->
+  <span class="cart-badge" [class.filled]="cartCount() > 0">🛒 {{ cartCount() }}</span>
+</header>

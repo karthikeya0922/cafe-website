@@ -1,0 +1,32 @@
+.cart {
+  position: sticky;
+  top: 20px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.qty button {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.total {
+  font-size: 18px;
+}
+
+.secondary {
+  width: 100%;
+}
