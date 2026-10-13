@@ -25,108 +25,122 @@ function initRegistrationValidation() {
     const form = document.getElementById("registerForm");
     if (!form) return;
 
-    const usernameInput = document.getElementById("username");
-    const emailInput = document.getElementById("email");
-    const pwdInput = document.getElementById("pwd");
+    // JavaScript takes over from the browser's built-in HTML5 validation
+    form.noValidate = true;
 
-    const usernameError = document.getElementById("usernameError");
-    const emailError = document.getElementById("emailError");
-    const pwdError = document.getElementById("pwdError");
+    const field = id => document.getElementById(id);
 
-    // Real-time validation listeners to clear errors on typing
-    if (usernameInput) {
-        usernameInput.addEventListener("input", () => validateUsername(false));
-    }
-    if (emailInput) {
-        emailInput.addEventListener("input", () => validateEmail(false));
-    }
-    if (pwdInput) {
-        pwdInput.addEventListener("input", () => validatePassword(false));
+    // Each rule returns an error message, or "" when the value is valid
+    const rules = {
+        fullname: () => {
+            const val = field("fullname").value.trim();
+            if (val === "") return "Full name is required.";
+            if (val.length < 3) return "Full name must be at least 3 characters long.";
+            if (!/^[A-Za-z ]+$/.test(val)) return "Full name can only contain letters and spaces.";
+            return "";
+        },
+        username: () => {
+            const val = field("username").value.trim();
+            if (val === "") return "Username is required.";
+            if (val.length < 3 || val.length > 20) return "Username must be 3 to 20 characters long.";
+            if (!/^[A-Za-z0-9_]+$/.test(val)) return "Username can only contain letters, numbers, and underscores.";
+            return "";
+        },
+        email: () => {
+            const val = field("email").value.trim();
+            if (val === "") return "Email is required.";
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return "Please enter a valid email address (e.g., user@example.com).";
+            return "";
+        },
+        phone: () => {
+            const val = field("phone").value.trim();
+            if (val === "") return "Mobile number is required.";
+            if (!/^[6-9][0-9]{9}$/.test(val)) return "Enter a 10-digit mobile number starting with 6, 7, 8 or 9.";
+            return "";
+        },
+        dob: () => {
+            const val = field("dob").value;
+            if (val === "") return "Date of birth is required.";
+            const dob = new Date(val);
+            const today = new Date();
+            if (dob > today) return "Date of birth cannot be in the future.";
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) age--;
+            if (age < 13) return "You must be at least 13 years old to register.";
+            return "";
+        },
+        gender: () => {
+            return form.querySelector('input[name="gender"]:checked') ? "" : "Please select your gender.";
+        },
+        favourite: () => {
+            return field("favourite").value === "" ? "Please choose your favourite drink." : "";
+        },
+        pwd: () => {
+            const val = field("pwd").value;
+            if (val === "") return "Password is required.";
+            if (val.length < 6) return "Password must be at least 6 characters long.";
+            if (!/(?=.*[a-zA-Z])(?=.*[0-9])/.test(val)) return "Password must contain both letters and numbers.";
+            return "";
+        },
+        confirmPwd: () => {
+            const val = field("confirmPwd").value;
+            if (val === "") return "Please confirm your password.";
+            if (val !== field("pwd").value) return "Passwords do not match.";
+            return "";
+        },
+        terms: () => {
+            return field("terms").checked ? "" : "You must accept the terms and conditions.";
+        }
+    };
+
+    function showResult(name, message) {
+        const errorElement = field(name + "Error");
+        const input = field(name);
+        if (errorElement) errorElement.textContent = message;
+        // Radio groups and checkboxes have no border to highlight
+        if (input && input.type !== "checkbox") {
+            input.style.border = message ? "2px solid #ff6b6b" : "1px solid #ccc";
+        }
     }
 
-    // Submit handler
+    function validateField(name) {
+        const message = rules[name]();
+        showResult(name, message);
+        return message === "";
+    }
+
+    // Re-check a field as the user types or changes it
+    Object.keys(rules).forEach(name => {
+        const targets = name === "gender"
+            ? form.querySelectorAll('input[name="gender"]')
+            : [field(name)];
+        targets.forEach(el => {
+            if (!el) return;
+            el.addEventListener("input", () => validateField(name));
+            el.addEventListener("change", () => validateField(name));
+        });
+    });
+
+    // Changing the password should re-check the confirmation too
+    field("pwd").addEventListener("input", () => {
+        if (field("confirmPwd").value !== "") validateField("confirmPwd");
+    });
+
     form.addEventListener("submit", (e) => {
-        const isUsernameValid = validateUsername(true);
-        const isEmailValid = validateEmail(true);
-        const isPasswordValid = validatePassword(true);
-
-        if (!isUsernameValid || !isEmailValid || !isPasswordValid) {
-            e.preventDefault(); // Stop form submission if any field fails
+        // Validate every field (no short-circuit) so all errors show at once
+        const results = Object.keys(rules).map(validateField);
+        if (results.includes(false)) {
+            e.preventDefault();
+            const firstError = Object.keys(rules).find((name, i) => !results[i]);
+            const firstInput = field(firstError) || form.querySelector(`[name="${firstError}"]`);
+            if (firstInput) firstInput.focus();
         } else {
-            // Optional: alert or let it submit to index.html
-            alert("Registration successful! Redirecting to Home...");
+            alert("Registration successful! Welcome to Fire Pot, " + field("fullname").value.trim() + ".");
         }
     });
 
-    // --- Validation Helper Functions ---
-
-    function setError(input, errorElement, message) {
-        if (errorElement) errorElement.textContent = message;
-        if (input) input.style.border = "2px solid #ff6b6b";
-    }
-
-    function clearError(input, errorElement) {
-        if (errorElement) errorElement.textContent = "";
-        if (input) input.style.border = "1px solid #ccc";
-    }
-
-    function validateUsername(isSubmitting) {
-        if (!usernameInput) return true;
-        const val = usernameInput.value.trim();
-
-        if (val === "") {
-            if (isSubmitting) setError(usernameInput, usernameError, "Username is required.");
-            return false;
-        }
-        if (val.length < 3) {
-            setError(usernameInput, usernameError, "Username must be at least 3 characters long.");
-            return false;
-        }
-        if (!/^[a-zA-Z0-9_]+$/.test(val)) {
-            setError(usernameInput, usernameError, "Username can only contain letters, numbers, and underscores.");
-            return false;
-        }
-
-        clearError(usernameInput, usernameError);
-        return true;
-    }
-
-    function validateEmail(isSubmitting) {
-        if (!emailInput) return true;
-        const val = emailInput.value.trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (val === "") {
-            if (isSubmitting) setError(emailInput, emailError, "Email is required.");
-            return false;
-        }
-        if (!emailRegex.test(val)) {
-            setError(emailInput, emailError, "Please enter a valid email address (e.g., user@example.com).");
-            return false;
-        }
-
-        clearError(emailInput, emailError);
-        return true;
-    }
-
-    function validatePassword(isSubmitting) {
-        if (!pwdInput) return true;
-        const val = pwdInput.value;
-
-        if (val === "") {
-            if (isSubmitting) setError(pwdInput, pwdError, "Password is required.");
-            return false;
-        }
-        if (val.length < 6) {
-            setError(pwdInput, pwdError, "Password must be at least 6 characters long.");
-            return false;
-        }
-        if (!/(?=.*[a-zA-Z])(?=.*[0-9])/.test(val)) {
-            setError(pwdInput, pwdError, "Password must contain both letters and numbers.");
-            return false;
-        }
-
-        clearError(pwdInput, pwdError);
-        return true;
-    }
+    form.addEventListener("reset", () => {
+        Object.keys(rules).forEach(name => showResult(name, ""));
+    });
 }
