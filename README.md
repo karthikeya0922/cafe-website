@@ -1,61 +1,88 @@
 # ☕ Fire Pot — Cafe Website
 
-A multi-page cafe website built week by week for the **3-1 Essentials of Web Programming (EWP)** lab at Anurag University. It starts as a static HTML/CSS site and grows to cover client-side JavaScript: form validation, the Fetch API, JSON and XML parsing, and AJAX POST requests.
+A cafe website built week by week for the **3-1 Essentials of Web Programming (EWP)** lab at Anurag University. It starts as static HTML/CSS pages and grows through JavaScript validation, XML/DTD, the Fetch API, TypeScript and finally a full **Angular** single-page app.
 
-It uses plain **HTML5, CSS3 and vanilla JavaScript**. There are no frameworks, no build step and no backend.
-
----
-
-## ✨ Features
-
-- **Shared navigation bar**: `navbar.html` is fetched and injected into every page, so the menu is defined in one place
-- **Glass-effect navbar** over a full-page cafe background
-- **Menu page from two data sources**: items are loaded from `menu.json` and `menu.xml` (parsed with `DOMParser`) and shown in one combined view
-- **Registration form validation**: live, per-field error messages for username, email and password
-- **Feedback form (AJAX POST)**: sends JSON to a test API and shows the server's response
-- **Fetch text loading**: the About page loads its content from `about.txt`
-- **Login page**: interface only, with no real authentication
+The main site uses plain **HTML5, CSS3 and vanilla JavaScript**, with no frameworks and no backend. Weeks 11–14 live in their own folders: `typescript/` and `cafe-angular/`.
 
 ---
 
-## 🛠️ Tech Stack
+## 🗓️ Lab Programs
 
-| Layer | Used |
-|-------|------|
-| Markup | HTML5 |
-| Styling | CSS3 (`style.css`) |
-| Scripting | Vanilla JavaScript (ES6) |
-| Data | JSON, XML, plain text |
-| Networking | Fetch API (GET and POST) |
-| Test API | [JSONPlaceholder](https://jsonplaceholder.typicode.com/) |
-
----
-
-## 📄 Pages
-
-| Page | File | What it shows |
-|------|------|---------------|
-| Home | `index.html` | Hero section and welcome message |
-| Services | `services.html` | What the cafe offers |
-| Menu | `menu.html` | Menu items loaded from JSON and XML |
-| About | `about.html` | Cafe story, fetched from `about.txt` |
-| Contact | `contact.html` | Contact details and a feedback form that POSTs via fetch |
-| Login | `login.html` | Login form (interface only) |
-| Register | `register.html` | Sign-up form with JavaScript validation |
-| Load Text | `loadtext.html` | Lab exercise: load a text file with fetch |
-| Post Data | `postdata.html` | Lab exercise: send JSON with a fetch POST |
-| Trail | `trail.html` | Scratch page used during development |
+| Week | Task | Where |
+|------|------|-------|
+| 1 | Static web pages: Home and Login | `index.html`, `login.html` |
+| 2 | Registration page with HTML form validation | `register.html` (`required`, `pattern`, `minlength`, field types) |
+| 3 | Internal, external and inline CSS | `style.css` (external), `<style>` blocks (internal), `style=""` (inline). Each type is labelled with a comment in the week 1–2 pages |
+| 4 | JavaScript validation for the registration page | `script.js` (10 fields: name, username, email, phone, age 13+, gender, drink, password, confirm, terms) |
+| 5 | Catalogue page with HTML, CSS and JS | `catalogue.html`, `catalogue.css`, `catalogue.js` (search, filters, sort, cart) |
+| 6 | XML file displaying item info, validated with a DTD | `menu.xml`, `menu.dtd`, `menu.xsl` |
+| 7 | Review and Skill Test-1 | — |
+| 8 | Ajax / Fetch: load text asynchronously | `loadtext.html` → `notes.txt`, `about.html` → `about.txt`, shared navbar |
+| 9 | Ajax / Fetch: parse JSON and XML responses | `menu.html` → `menu.json` + `menu.xml` (`DOMParser`) |
+| 10 | Ajax / Fetch: send data with POST | `postdata.html`, feedback form in `contact.html` |
+| 11 | TypeScript: classes, interfaces, functions | `typescript/src/` |
+| 12 | Angular components, data binding, directives | `cafe-angular/src/app/components`, `directives/` |
+| 13–14 | Angular forms, routing and services (SPA) | `cafe-angular/src/app/pages`, `services/`, `app.routes.ts` |
 
 ---
 
-## 🗓️ Lab Progress
+## 🚀 Getting Started
 
-| Week | Topic |
-|------|-------|
-| 1–7 | Static pages, CSS styling, shared glass navbar, layout fixes |
-| 8 | Fetch-based text and menu loading; register form validation |
-| 9 | Menu page redesign with a combined JSON and XML view |
-| 10 | AJAX / Fetch POST program |
+```bash
+git clone https://github.com/karthikeya0922/cafe-website.git
+cd cafe-website
+```
+
+### Weeks 1–10: the static site
+
+> **Use a local server.** The pages load `navbar.html`, `menu.json`, `menu.xml` and the text files with `fetch()`. Browsers block these requests when a page is opened straight from disk (`file://`).
+
+```bash
+python -m http.server 8000      # or: npx serve .
+```
+
+Open **http://localhost:8000**. In VS Code you can also use **Live Server**.
+
+- To see the XSLT-styled XML (week 6), open **http://localhost:8000/menu.xml**.
+- The POST demos (week 10) send requests to [JSONPlaceholder](https://jsonplaceholder.typicode.com/), so they need an internet connection.
+
+### Week 11: TypeScript
+
+```bash
+npm install
+npm run ts:interfaces
+npm run ts:classes
+npm run ts:functions
+npm run ts:billing
+```
+
+Each script compiles `typescript/src` with `tsc` and runs one program with Node.
+
+### Weeks 12–14: Angular
+
+```bash
+cd cafe-angular
+npm install
+npm start                       # http://localhost:4200
+```
+
+See [cafe-angular/README.md](cafe-angular/README.md) for the routes and which file covers each topic.
+
+---
+
+## 🔍 How It Works
+
+**Registration (weeks 2 and 4).** The form uses HTML5 validation attributes, so it is validated even without JavaScript. When `script.js` loads, it sets `form.noValidate` and takes over: each field has a rule, errors appear under fields as you type, and the form won't submit while anything is invalid.
+
+**Catalogue (week 5).** The products are a JavaScript array. Search, category filter and sort all update a small `state` object and re-render the cards. The cart tracks quantities and the total.
+
+**XML + DTD (week 6).** `menu.xml` declares `<!DOCTYPE menu SYSTEM "menu.dtd">`. The DTD requires `name`, `category` and `price` in that order, makes `description` optional, gives every item a unique `ID`, and limits `veg` to `yes|no`. `menu.xsl` turns the XML into a styled table in the browser.
+
+**Fetch (weeks 8–10).** Every page fetches `navbar.html` into `<div id="navbar">`. The menu page loads JSON and XML together with `Promise.all`, parses the XML with `DOMParser`, and renders both lists in the same format. The feedback form POSTs JSON and shows the server's echo.
+
+**TypeScript (week 11).** There are four programs: interfaces (readonly/optional properties, extension, function types, index signatures); classes (abstract base, inheritance, access modifiers, getters/setters, static members); functions (optional/default/rest parameters, overloads, generics, closures); and a billing system that combines all three.
+
+**Angular (weeks 12–14).** Built with Angular 22 using standalone components and signals. Week 12 covers components with inputs/outputs, the four kinds of data binding, `@if`/`@for`/`@switch`, `ngClass`/`ngStyle` and a custom `appHighlight` directive. Weeks 13–14 add the router (route params, lazy loading, a guard and a 404 page), services (menu over HttpClient, cart, orders), a reactive checkout form with conditional validators, and a template-driven reservation form.
 
 ---
 
@@ -63,93 +90,43 @@ It uses plain **HTML5, CSS3 and vanilla JavaScript**. There are no frameworks, n
 
 ```text
 cafe-website/
-├── index.html            # Home
-├── services.html
-├── menu.html             # JSON + XML menu
-├── about.html
-├── contact.html          # Feedback form (fetch POST)
-├── login.html
-├── register.html         # Validated sign-up form
-├── loadtext.html         # Fetch text exercise
-├── postdata.html         # Fetch POST exercise
-├── trail.html
+├── index.html  login.html  register.html          # Weeks 1-4
+├── catalogue.html  catalogue.css  catalogue.js    # Week 5
+├── menu.xml  menu.dtd  menu.xsl                   # Week 6
+├── loadtext.html  notes.txt  about.html  about.txt # Week 8
+├── menu.html  menu.json                           # Week 9
+├── postdata.html  contact.html                    # Week 10
+├── services.html  trail.html
+├── navbar.html  style.css  script.js              # Shared navbar, styles, validation
+├── *.jpg  *.png  *.ico                            # Logos and backgrounds
 │
-├── navbar.html           # Shared navbar, injected with fetch
-├── style.css             # Site-wide styles
-├── script.js             # Navbar loader and registration validation
+├── typescript/                                    # Week 11
+│   ├── tsconfig.json
+│   └── src/  interfaces.ts  classes.ts  functions.ts  cafe-billing.ts
 │
-├── menu.json             # Menu data (JSON)
-├── menu.xml              # Menu data (XML)
-├── about.txt             # About page text
-│
-└── images                # Logos and background images (*.jpg, *.png, *.ico)
+└── cafe-angular/                                  # Weeks 12-14
+    ├── public/menu-data.json
+    └── src/app/
+        ├── components/   header, menu-card, menu-list, cart-summary
+        ├── directives/   highlight.ts
+        ├── services/     menu, cart, order
+        ├── guards/       cart-not-empty.ts
+        ├── pages/        home, menu, item-detail, cart, checkout,
+        │                 order-confirmation, reservation, not-found
+        └── app.routes.ts
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Tech Stack
 
-> **Run the site through a local server.** The pages load `navbar.html`, `menu.json`, `menu.xml` and `about.txt` with `fetch()`. Browsers block these requests when a file is opened straight from disk (`file://`), so the navbar and menu will not appear.
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/karthikeya0922/cafe-website.git
-   cd cafe-website
-   ```
-
-2. Start a local server. Any of these works:
-
-   ```bash
-   # Python
-   python -m http.server 8000
-
-   # Node.js
-   npx serve .
-   ```
-
-   In VS Code you can also right-click `index.html` and choose **Open with Live Server**.
-
-3. Open **http://localhost:8000** in your browser.
-
-The feedback form and `postdata.html` send requests to JSONPlaceholder, so those two need an internet connection.
-
----
-
-## 🔍 How It Works
-
-**Shared navbar**: each page has an empty `<div id="navbar">`. On load, the page fetches `navbar.html` and inserts it there.
-
-**Menu (JSON + XML)**: `menu.html` fetches both files at the same time with `Promise.all`. The JSON is read with `response.json()`. The XML is read as text and parsed with `DOMParser`. Both lists are converted to the same item shape and rendered together.
-
-**Registration validation** (`script.js`):
-
-| Field | Rules |
-|-------|-------|
-| Username | Required, at least 3 characters, only letters, numbers and `_` |
-| Email | Required, must be a valid email format |
-| Password | Required, at least 6 characters, must contain letters and numbers |
-
-Errors show under each field as you type, and the form will not submit while any field is invalid.
-
-**Fetch POST**: the feedback form sends its values as JSON to `https://jsonplaceholder.typicode.com/posts` and prints the echoed response. JSONPlaceholder is a fake API, so nothing is actually stored.
-
----
-
-## 📌 Future Improvements
-
-- Fully responsive layout for phones and tablets
-- Move inline styles into `style.css`
-- Real backend for login, registration and feedback
-- Online table reservation
-- Image gallery and customer reviews
-- Dark mode
+HTML5 · CSS3 · JavaScript (ES6) · XML / DTD / XSLT · JSON · Fetch API · TypeScript 7 · Angular 22
 
 ---
 
 ## ⚠️ Disclaimer
 
-The login and registration pages are **for demonstration only**. They do not authenticate anyone and do not store any user data. Form submissions go only to a public test API.
+The login, registration, checkout and reservation forms are **for demonstration only**. Nothing is authenticated or stored on a server. Feedback submissions go only to a public test API, and Angular orders and reservations exist only until the page reloads.
 
 ---
 
