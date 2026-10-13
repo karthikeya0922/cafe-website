@@ -1,0 +1,14 @@
+{
+  "name": "fire-pot-cafe",
+  "private": true,
+  "scripts": {
+    "ts:build": "tsc -p typescript",
+    "ts:interfaces": "npm run ts:build && node typescript/dist/interfaces.js",
+    "ts:classes": "npm run ts:build && node typescript/dist/classes.js",
+    "ts:functions": "npm run ts:build && node typescript/dist/functions.js",
+    "ts:billing": "npm run ts:build && node typescript/dist/cafe-billing.js"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
